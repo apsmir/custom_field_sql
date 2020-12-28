@@ -8,8 +8,8 @@ module CustomFieldSql
         self.form_partial = 'custom_fields/formats/sql'
 
         def possible_values_options(custom_field, object = nil)
-	  result = ActiveRecord::Base.connection.execute(custom_field.sql)
-	  result.values.sort
+	  result = ActiveRecord::Base.connection.select_all(custom_field.sql).map{ |key, value| value }
+	  #result.values
         end
 
         def group_statement(custom_field)
