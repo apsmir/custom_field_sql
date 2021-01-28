@@ -8,8 +8,12 @@ module CustomFieldSql
         self.form_partial = 'custom_fields/formats/sql'
 
         def possible_values_options(custom_field, object = nil)
-	  result = ActiveRecord::Base.connection.execute(custom_field.sql)
-	  result.values.sort
+          sql = custom_field.sql
+		  if object
+			  sql = sql.gsub('%id%', object.id.to_s)
+		  end
+	      result = ActiveRecord::Base.connection.select_all(sql)
+	      result.rows
         end
 
         def group_statement(custom_field)

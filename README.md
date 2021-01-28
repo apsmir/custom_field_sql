@@ -22,6 +22,11 @@ Usage
 2) Press the button **New custom field**. Select format **Sql**.
 3) Enter sql query 
 
+SQL parametrs
+----------------------
+You can use parameters for sql expression.
+%id% => id of the customized object
+
 Uninstall
 ----------------------
 1) Delete all custom fields with format Sql.
