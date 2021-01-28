@@ -22,7 +22,7 @@ Usage
 2) Press the button **New custom field**. Select format **Sql**.
 3) Enter sql query 
 
-SQL parametrs
+SQL parameters
 ----------------------
 You can use parameters for sql expression.
 %id% => id of the customized object
