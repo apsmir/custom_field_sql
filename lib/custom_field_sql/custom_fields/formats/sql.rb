@@ -9,11 +9,11 @@ module CustomFieldSql
 
         def possible_values_options(custom_field, object = nil)
           sql = custom_field.sql
-		  if object
-			  sql = sql.gsub('%id%', object.id.to_s)
-		  end
-	      result = ActiveRecord::Base.connection.select_all(sql)
-	      result.rows
+          if object
+            sql = sql.gsub('%id%', object.id.to_s)
+          end
+          result = ActiveRecord::Base.connection.select_all(sql)
+          result.rows
         end
 
         def group_statement(custom_field)
