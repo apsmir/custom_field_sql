@@ -10,7 +10,11 @@ module CustomFieldSql
         def possible_values_options(custom_field, object = nil)
           sql = custom_field.sql
           if object
-            sql = sql.gsub('%id%', object.id.to_s)
+            if object.id.nil?
+              sql = sql.gsub('%id%', 'null')
+            else
+              sql = sql.gsub('%id%', object.id.to_s)
+            end
           end
           result = ActiveRecord::Base.connection.select_all(sql)
           result.rows
