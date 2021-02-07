@@ -27,6 +27,12 @@ SQL parameters
 You can use parameters for sql expression.
 %id% => id of the customized object
 
+Scripts
+----------------------
+view_customize/custom_field_autselect_first_value.js
+It is script for plugin "view customize" https://www.redmine.org/plugins/view_customize
+The script allows you to automatically select the first value for a custom field (drop-down list) 
+
 Uninstall
 ----------------------
 1) Delete all custom fields with format Sql.
