@@ -6,7 +6,7 @@ Parameter: customField - id custom field
 $(function() {
   var customField = 22;
   var target = $('#issue_custom_field_values_'+customField);
-  if (target) {
+  if ((target.length) && (!target.val())) {
     var s = target.find('option[value!=""]');
     if (s)
      s.first().prop('selected', true);
