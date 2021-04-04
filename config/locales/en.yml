@@ -2,3 +2,6 @@
 en:
   label_sql: sql
   field_sql: sql expression
+  label_sql_search: sql search
+  field_sql_search: sql expression
+  field_form_params: list of form parameters

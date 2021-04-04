@@ -2,3 +2,4 @@
 ru:
   label_sql: sql
   field_sql: sql запрос
+  field_form_params: список параметров формы
