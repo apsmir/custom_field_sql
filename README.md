@@ -1,6 +1,8 @@
 Redmine sql custom field
 ==================
-This plugin add sql format for custom fields.
+This plugin add two sql format for custom fields
+* **sql** - format for simple sql-expression.
+* **sql_search** - format for search sql query with form parameters
 
 Compatibility
 -------------
@@ -25,7 +27,15 @@ Usage
 SQL parameters
 ----------------------
 You can use parameters for sql expression.
-%id% => id of the customized object
+'sql' format: support %id% => id of the customized object. This may be id of issue or id of project
+
+**sql_search** format: support multiply forms parameters. Parameters must be written in jquery. Simple:
+ "sql expression": `select id, subject as value, description as label from issues where subject like ? and description like ?  `
+ "sql form params":
+`
+p0='%'+$('#issue_custom_field_values_31').val()+'%'
+p1='%'+$('#issue_custom_field_values_30').val()+'%'
+`
 
 Scripts
 ----------------------
