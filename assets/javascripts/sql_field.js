@@ -1,4 +1,4 @@
-function observeSqlField(fieldId, url, form_params, options) {
+function observeSqlField(fieldId, url, form_params, search_by_click, options) {
     $(document).ready(function() {
         $('#'+fieldId).autocomplete($.extend({
             source: function(request, response) {
@@ -23,5 +23,10 @@ function observeSqlField(fieldId, url, form_params, options) {
             response: function(){$('#'+fieldId).removeClass('ajax-loading');}
         }, options));
         $('#'+fieldId).addClass('autocomplete');
+        if (search_by_click) {
+            $('#' + fieldId).click(function () {
+                $(this).autocomplete('search', 'data')
+            });
+        }
     });
 }

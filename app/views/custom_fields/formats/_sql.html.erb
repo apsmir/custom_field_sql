@@ -2,7 +2,10 @@
   <%= f.text_area :sql, :value => @custom_field.sql, :rows => 15 %>
 </p>
 <% if @custom_field.field_format == "sql_search"  %>
-<p>
-  <%= f.text_area :form_params, :value => @custom_field.form_params, :rows => 10 %>
-</p>
+  <p>
+    <%= f.text_area :form_params, :value => @custom_field.form_params, :rows => 10 %>
+  </p>
+  <p>
+    <%= f.check_box :search_by_click %>
+  </p>
 <% end %>

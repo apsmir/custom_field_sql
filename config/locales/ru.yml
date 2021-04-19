@@ -3,3 +3,4 @@ ru:
   label_sql: sql
   field_sql: sql запрос
   field_form_params: список параметров формы
+  field_search_by_click: поиск по клику мышкой

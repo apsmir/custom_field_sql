@@ -21,21 +21,26 @@ $ git clone https://github.com/apsmir/custom_field_sql.git
 Usage
 ----------------------
 1) Visit **Administration->Custom fields**. 
-2) Press the button **New custom field**. Select format **Sql**.
+2) Press the button **New custom field**. Select format **Sql** or **Sql search**.
 3) Enter sql query 
 
 SQL parameters
 ----------------------
 You can use parameters for sql expression.
-'sql' format: support %id% => id of the customized object. This may be id of issue or id of project
+**sql** 
+format: support %id% => id of the customized object. This may be id of issue or id of project
 
-**sql_search** format: support multiply forms parameters. Parameters must be written in jquery. Simple:
- "sql expression": `select id, subject as value, description as label from issues where subject like ? and description like ?  `
+**sql_search** 
+Query must have field 'valie'. This field used be as field value.
+format: support multiply forms parameters. Parameters must be written in jquery. Simple:
+ "sql expression": `select subject as value, description as label from issues where subject like ? and description like ?  `
  "sql form params":
 `
 p0='%'+$('#issue_custom_field_values_31').val()+'%'
 p1='%'+$('#issue_custom_field_values_30').val()+'%'
 `
+
+Query in **sql search** field can be executed by mouse click. Use parametr "search by click" in settings page.
 
 Scripts
 ----------------------

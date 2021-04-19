@@ -5,3 +5,4 @@ en:
   label_sql_search: sql search
   field_sql_search: sql expression
   field_form_params: list of form parameters
+  field_search_by_click: search by mouse click

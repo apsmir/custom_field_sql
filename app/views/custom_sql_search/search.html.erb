@@ -1,5 +1,5 @@
 <%= raw @dataset.map {|record| {
-      'id' => record['id'],
+      #'id' => record['id'],
       'value' => record['value'],
       'label' => "#{record['value'].to_s.truncate(60)} (#{record['label'].to_s.truncate(60)})"
       #     'label' => "#{record.value.to_s.truncate(60)} (#{record.count})",
