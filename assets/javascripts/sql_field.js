@@ -27,6 +27,11 @@ function observeSqlField(fieldId, url, form_params, search_by_click, options) {
             $('#' + fieldId).click(function () {
                 $(this).autocomplete('search', 'data')
             });
+            $('#' + fieldId).keydown(function(e) {
+                if (e.altKey && e.keyCode == 40)
+                    $(this).autocomplete('search', 'data')
+            });
+
         }
     });
 }
