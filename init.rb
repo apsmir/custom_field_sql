@@ -4,7 +4,7 @@ Redmine::Plugin.register :custom_field_sql do
   name 'Redmine SQL Custom Field Label plugin'
   author 'Alexey Smirnov'
   description 'This is a plugin for Redmine which adds SQL type to Custom Fields'
-  version '2.1'
+  version '2.2'
   url 'https://github.com/apsmir/custom_field_sql'
 
 end

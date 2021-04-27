@@ -12,8 +12,8 @@ function observeSqlField(fieldId, url, form_params, search_by_click, options) {
                         response(data);
                     }
                 }
-                for(var key in form_params){
-                    url_obj.data[key]=eval(obj[key]);
+                for(let key in form_params){
+                    url_obj.data[key]=eval(form_params[key]);
                 }
                 $.ajax(url_obj);
             },
