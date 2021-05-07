@@ -31,7 +31,7 @@ You can use parameters for sql expression.
 format: support %id% => id of the customized object. This may be id of issue or id of project
 
 **sql_search** 
-Query must have field 'valie'. This field used be as field value.
+Query must have field 'value'. This field used be as field value.
 format: support multiply forms parameters. Parameters must be written in jquery. 
 
 ----------------------
