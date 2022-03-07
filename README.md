@@ -31,14 +31,39 @@ You can use parameters for sql expression.
 format: support %id% => id of the customized object. This may be id of issue or id of project
 
 **sql_search** 
-Query must have field 'valie'. This field used be as field value.
-format: support multiply forms parameters. Parameters must be written in jquery. Simple:
- "sql expression": `select subject as value, description as label from issues where subject like ? and description like ?  `
+Query must have field 'value'. This field used be as field value.
+format: support multiply forms parameters. Parameters must be written in jquery. 
+
+----------------------
+Simple 1:
+
+ "sql expression": 
+ 
+ `select subject as value, description as label from issues where subject like ? and description like ?  `
+ 
  "sql form params":
-`
-p0='%'+$('#issue_custom_field_values_31').val()+'%'
-p1='%'+$('#issue_custom_field_values_30').val()+'%'
-`
+ 
+`p0='%'+$('#issue_custom_field_values_31').val()+'%'`
+`p1='%'+$('#issue_custom_field_values_30').val()+'%'`
+
+----------------------
+Simple 2 (for MySQL):
+
+ "sql expression": 
+ 
+ `select subject as value from issues where id = if( ? ='new', id, ?);`
+ 
+ 
+ "sql form params":
+ 
+`p0=window.location.toString().split('/').pop()`
+
+`p1=window.location.toString().split('/').pop()`
+
+
+This expression `window.location.toString().split('/').pop()` calculate **issue id** on form. For new issues calculated value = 'new'.
+
+----------------------
 
 Query in **sql search** field can be executed by mouse click. Use parametr "search by click" in settings page.
 
