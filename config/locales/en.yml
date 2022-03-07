@@ -6,3 +6,5 @@ en:
   field_sql_search: sql expression
   field_form_params: list of form parameters
   field_search_by_click: search by mouse click
+  label_db_config: database configuration
+  field_db_config: database configuration

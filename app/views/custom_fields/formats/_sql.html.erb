@@ -6,6 +6,9 @@
     <%= f.text_area :form_params, :value => @custom_field.form_params, :rows => 10 %>
   </p>
   <p>
+    <%= f.text_field :db_config  %>
+  </p>
+  <p>
     <%= f.check_box :search_by_click %>
   </p>
 <% end %>

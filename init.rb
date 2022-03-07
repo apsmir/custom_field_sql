@@ -12,6 +12,7 @@ end
 CustomField.safe_attributes(
   'sql',
   'form_params',
-  'search_by_click'
+  'search_by_click',
+  'db_config'
 )
 
