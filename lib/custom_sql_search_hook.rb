@@ -14,7 +14,7 @@ class CustomSqlSearchHookListener < Redmine::Hook::ViewListener
               p = Hash[field.form_params.each_line.map {|str| str.split("=")}]
               html << "<script>\n"
               html << "//<![CDATA[\n"
-              html << "observeSqlField(\'issue_custom_field_values_#{field.id}\', \'#{Redmine::Utils.relative_url_root}/custom_sql_search/search?project_id=#{context[:issue].project_id}&issue_id=#{context[:issue].id}&custom_field_id=#{field.id}\', JSON.parse(#{p.to_json.dump}), #{field.search_by_click})\n"
+              html << "observeSqlField(\'issue_custom_field_values_#{field.id}\', \'#{Redmine::Utils.relative_url_root}/custom_sql_search/search?project_id=#{context[:issue].project_id}&issue_id=#{context[:issue].id}&custom_field_id=#{field.id}\', JSON.parse(#{p.to_json.dump}), #{field.search_by_click}, #{field.strict_selection})\n"
               html << "//]]>\n"
               html << "</script>\n"
           end

@@ -6,4 +6,5 @@ ru:
   field_search_by_click: поиск по клику мышкой
   label_db_config: параметры подключения
   field_db_config: параметры подключения
+  field_strict_selection: строгий выбор (только по справочнику)
 
