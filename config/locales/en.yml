@@ -9,3 +9,4 @@ en:
   label_db_config: database configuration
   field_db_config: database configuration
   field_strict_selection: strict selection (only dictionary values)
+  field_strict_error_message: strict error message

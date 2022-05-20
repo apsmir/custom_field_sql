@@ -7,4 +7,5 @@ ru:
   label_db_config: параметры подключения
   field_db_config: параметры подключения
   field_strict_selection: строгий выбор (только по справочнику)
+  field_strict_error_message: сообщение об ошибке строгого выбора
 
