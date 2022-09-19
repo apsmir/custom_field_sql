@@ -17,6 +17,7 @@ module CustomFieldSql
           sql = custom_field.sql
           if sql
             if object
+              return [] unless (object.class.to_s + 'CustomField')==custom_field.class.to_s
               if object.id.nil?
                 sql = sql.gsub('%id%', 'null')
               else
