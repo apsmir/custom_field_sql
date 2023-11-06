@@ -35,7 +35,7 @@ function observeSqlField(fieldId, url, form_params, options) {
                 if (options.strict_selection=='0' ) {
                     return;
                 }
-                var input = $(this, 'input')
+                var input = $(this, 'input');
                 var value = input.val();
                 if ( this.store.includes(value) ) {
                     return;
@@ -53,6 +53,9 @@ function observeSqlField(fieldId, url, form_params, options) {
             }
         }, options));
         $('#'+fieldId).addClass('autocomplete');
+        $('#' + fieldId).keypress(function (e) {
+            if (e.keyCode == 13) return false;
+        });
         if (options.search_by_click=='1') {
             $('#' + fieldId).click(function () {
                 $(this).autocomplete('search', 'data')
