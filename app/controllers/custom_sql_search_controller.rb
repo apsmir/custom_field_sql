@@ -5,6 +5,27 @@ class CustomSqlSearchController < ApplicationController
   #  before_action :find_project, :authorize
   before_action :find_custom_field
 
+  def sqlserver_search(db_config, sql)
+    c = ActiveRecord::Base.configurations[db_config]
+    client = TinyTds::Client.new username: c['username'], password: c['password'], host: c['host'],  port: c['port'],  timeout: 60000, database: c['database']
+    Rails.logger.info('TinyTds  sql ' + sql.to_s)
+    result = client.execute(sql)
+    dataset = []
+    result.each do |row|
+      dataset << row
+    end
+    dataset
+  end
+
+  def  with_another_database(config, sql)
+    c = ActiveRecord::Base.configurations[config]
+    if c['adapter'] == 'sqlserver'
+      sqlserver_search(config, sql)
+    else
+      []
+    end
+  end
+
   def with_another_db(another_db_config)
     original_connection = ActiveRecord::Base.remove_connection
     ActiveRecord::Base.establish_connection(another_db_config)
@@ -14,23 +35,18 @@ class CustomSqlSearchController < ApplicationController
   end
 
   def search
-    issue_id = params['issue_id']
-    if issue_id.nil? || issue_id.empty?
-      sql = @custom_field.sql.to_s.gsub('%id%', 'null')
-    else
-      sql = @custom_field.sql.to_s.gsub('%id%', issue_id)
-    end
-    sql_bind  = [sql]
-    p = Hash[@custom_field.form_params.each_line.map {|str| str.split("=")}]
-    p.each { |k,v| sql_bind.push(params[k])}
+    params['issue_id'] = 'null' if params['issue_id'].nil? || params['issue_id'].empty?
+    params['project_id'] = 'null' if params['project_id'].nil? || params['project_id'].empty?
+    #sql_bind  = [sql]
+    #p = Hash[@custom_field.form_params.each_line.map {|str| str.split("=")}]
+    #p.each { |k,v| sql_bind.push(params[k])}
 
-    if @custom_field.db_config.nil?
-      @dataset  = CustomField.find_by_sql(sql_bind)
+    sql = @custom_field.sql % params
+
+    if @custom_field.db_config.blank?
+      @dataset  = CustomField.find_by_sql(sql)
     else
-      with_another_db(ActiveRecord::Base.configurations['mssqldb']) do
-        # ActiveRecord::Base.connection.execute("SELECT 'Look ma, I have changed DB!';")
-        @dataset  = CustomField.find_by_sql(sql_bind)
-      end
+      @dataset = with_another_database(@custom_field.db_config, sql)
     end
 
     render :layout => false

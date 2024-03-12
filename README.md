@@ -24,22 +24,30 @@ Usage
 2) Press the button **New custom field**. Select format **Sql** or **Sql search**.
 3) Enter sql query 
 
-SQL parameters
+SQL fields and parameters
 ----------------------
 You can use parameters for sql expression.
-**sql** 
-format: support %id% => id of the customized object. This may be id of issue or id of project
+This may be id of issue %{issue_id} or id of project %{project_id}
+
+You can use any form  values as query parameter.
+`p0='%'+$('#issue_custom_field_values_31').val()+'%'`
+
+where
+
+p0 - parameter name
+
+%'+$('#issue_custom_field_values_31').val()+'% - any jquery expression to calculate parameter value
 
 **sql_search** 
 Query must have field 'value'. This field used be as field value.
 format: support multiply forms parameters. Parameters must be written in jquery. 
 
 ----------------------
-Simple 1:
+Example 1:
 
  "sql expression": 
  
- `select subject as value, description as label from issues where subject like ? and description like ?  `
+ `select subject as value, description as label from issues where subject like '%{p0}' and description like '%{p1}'`
  
  "sql form params":
  
@@ -65,7 +73,7 @@ This expression `window.location.toString().split('/').pop()` calculate **issue 
 
 ----------------------
 
-Query in **sql search** field can be executed by mouse click. Use parametr "search by click" in settings page.
+Query in **sql search** field can be executed by mouse click. Use parameter "search by click" in settings page.
 
 Scripts
 ----------------------
