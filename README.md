@@ -75,6 +75,14 @@ This expression `window.location.toString().split('/').pop()` calculate **issue 
 
 Query in **sql search** field can be executed by mouse click. Use parameter "search by click" in settings page.
 
+Default value
+----------------------
+**sql_search** -this  format support sql-query for calculate  default value . This query select initial custom field value for new issue from database.
+
+Query can use parameters
+* %{tracker_id}
+* %{project_id}
+
 Scripts
 ----------------------
 view_customize/custom_field_autselect_first_value.js

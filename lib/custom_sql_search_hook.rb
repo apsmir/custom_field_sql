@@ -28,3 +28,19 @@ class CustomSqlSearchHookListener < Redmine::Hook::ViewListener
     return html
   end
 end
+
+module CustomFieldSqlCore
+  module Models
+    module CustomSqlValue
+      def initialize(attributes=nil, *args)
+        super
+        if new_record? && custom_field && (customized_type.blank? || (customized && customized.new_record?)) &&
+           (custom_field.format.instance_of? CustomFieldSql::CustomFields::Formats::SqlSearch)
+          self.value = custom_field.format.select_default_value(custom_field, customized)
+        end
+      end
+    end
+  end
+end
+
+CustomValue.send(:prepend, CustomFieldSqlCore::Models::CustomSqlValue)

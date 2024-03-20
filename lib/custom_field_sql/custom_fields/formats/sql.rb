@@ -6,6 +6,16 @@ module CustomFieldSql
         add 'sql_search'
         field_attributes :sql, :form_params, :search_by_click, :db_config, :strict_selection, :strict_error_message
         self.form_partial = 'custom_fields/formats/sql'
+
+        def select_default_value(custom_field, object = nil)
+          return if custom_field.default_value.blank?
+          params = {}
+          if object && object.is_a?(Issue)
+            params[:tracker_id] = object.tracker_id
+            params[:project_id] = object.project_id
+          end
+          ActiveRecord::Base.connection.select_value(custom_field.default_value % params)
+        end
       end
 
       class Sql < Redmine::FieldFormat::List
