@@ -18,9 +18,12 @@ function observeSqlField(fieldId, url, form_params, options) {
                     data: {
                         term: request.term
                     },
-                    success: function(data) {
-                        response(data);
-                    }
+                    error: function(request, status, error){
+                        $('#'+fieldId).removeClass('ajax-loading');
+                        console.log(request.responseText)
+                        console.log(error)
+                    },
+                    success: function(data) { response(data); }
                 }
                 for(let key in form_params){
                     url_obj.data[key]=eval(form_params[key]);
@@ -29,8 +32,8 @@ function observeSqlField(fieldId, url, form_params, options) {
             },
             minLength: 2,
             position: {collision: "flipfit"},
-            search: function(){$('#'+fieldId).addClass('ajax-loading');},
-            response: function(){$('#'+fieldId).removeClass('ajax-loading');},
+            search: function(){ $('#'+fieldId).addClass('ajax-loading'); },
+            response: function(){ $('#'+fieldId).removeClass('ajax-loading'); },
             change: function( event, ui ) {
                 if (options.strict_selection=='0' ) {
                     return;

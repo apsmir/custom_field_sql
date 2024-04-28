@@ -37,11 +37,8 @@ class CustomSqlSearchController < ApplicationController
   def search
     params['issue_id'] = 'null' if params['issue_id'].nil? || params['issue_id'].empty?
     params['project_id'] = 'null' if params['project_id'].nil? || params['project_id'].empty?
-    #sql_bind  = [sql]
-    #p = Hash[@custom_field.form_params.each_line.map {|str| str.split("=")}]
-    #p.each { |k,v| sql_bind.push(params[k])}
 
-    sql = @custom_field.sql % params
+    sql = @custom_field.sql % params.as_json.transform_keys(&:to_sym)
 
     if @custom_field.db_config.blank?
       @dataset  = CustomField.find_by_sql(sql)
@@ -49,7 +46,7 @@ class CustomSqlSearchController < ApplicationController
       @dataset = with_another_database(@custom_field.db_config, sql)
     end
 
-    render :layout => false
+    render json: @dataset
   end
 
   private
@@ -64,4 +61,4 @@ class CustomSqlSearchController < ApplicationController
   rescue ActiveRecord::RecordNotFound
     render_404
   end
-  end
+end

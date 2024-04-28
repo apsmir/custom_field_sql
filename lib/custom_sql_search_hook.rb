@@ -1,4 +1,4 @@
-class CustomSqlSearchHookListener < Redmine::Hook::ViewListener
+class CustomSqlSearchHook < Redmine::Hook::ViewListener
 
   def view_layouts_base_html_head(context={})
     html = "\n<!-- [custom field sql plugin] -->\n"

@@ -6,7 +6,7 @@ This plugin add two sql format for custom fields
 
 Compatibility
 -------------
-* Redmine 3.4.0 or higher
+* Redmine 5.0 or higher
 
 Installation
 ----------------------
