@@ -41,12 +41,15 @@ class CustomSqlSearchController < ApplicationController
     sql = @custom_field.sql % params.as_json.transform_keys(&:to_sym)
 
     if @custom_field.db_config.blank?
-      @dataset  = CustomField.find_by_sql(sql)
+      @dataset = ActiveRecord::Base.connection.select_all(sql)
     else
       @dataset = with_another_database(@custom_field.db_config, sql)
     end
 
-    render json: @dataset
+    render json: @dataset.map {|record| {
+      'value' => record['value'],
+      'label' => "#{record['value'].to_s.truncate(60)} (#{record['label'].to_s.truncate(60)})"
+    }}
   end
 
   private
