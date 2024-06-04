@@ -2,7 +2,7 @@ module CustomFieldSql
   module CustomFields
     module Formats
 
-      class SqlSearch < Redmine::FieldFormat::StringFormat
+      class SqlSearch < Redmine::FieldFormat::LinkFormat
         add 'sql_search'
         field_attributes :sql, :form_params, :search_by_click, :db_config, :strict_selection, :strict_error_message
         self.form_partial = 'custom_fields/formats/sql'
