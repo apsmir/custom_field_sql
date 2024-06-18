@@ -5,22 +5,26 @@ class CustomSqlSearchController < ApplicationController
   #  before_action :find_project, :authorize
   before_action :find_custom_field
 
-  def sqlserver_search(db_config, sql)
-    c = ActiveRecord::Base.configurations[db_config]
-    client = TinyTds::Client.new username: c['username'], password: c['password'], host: c['host'],  port: c['port'],  timeout: 60000, database: c['database']
-    Rails.logger.info('TinyTds  sql ' + sql.to_s)
-    result = client.execute(sql)
-    dataset = []
-    result.each do |row|
-      dataset << row
+  def sqlserver_search(c, sql)
+    begin
+      client = TinyTds::Client.new username: c[:username], password: c[:password], host: c[:host],  port: c[:port],  timeout: 60000, database: c[:database]
+      Rails.logger.info('TinyTds  sql ' + sql.to_s)
+      result = client.execute(sql)
+      dataset = []
+      result.each do |row|
+        dataset << row
+      end
+      dataset
+    rescue => e
+      Rails.logger.error('TinyTds error ' + e.message)
+      []
     end
-    dataset
   end
 
   def  with_another_database(config, sql)
-    c = ActiveRecord::Base.configurations[config]
-    if c['adapter'] == 'sqlserver'
-      sqlserver_search(config, sql)
+    c = ActiveRecord::Base.configurations.configs_for(env_name: config, name: 'primary')
+    if c.adapter == 'sqlserver'
+      sqlserver_search(c.configuration_hash, sql)
     else
       []
     end
