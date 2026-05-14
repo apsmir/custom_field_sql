@@ -4,7 +4,7 @@ module CustomFieldSql
 
       class SqlSearch < Redmine::FieldFormat::StringFormat
         add 'sql_search'
-        field_attributes :sql, :form_params, :search_by_click, :db_config, :strict_selection, :strict_error_message
+        field_attributes :sql, :form_params, :search_by_click, :db_config, :strict_selection, :strict_error_message, :multi_select
         self.form_partial = 'custom_fields/formats/sql'
 
         def select_default_value(custom_field, object = nil)
@@ -15,6 +15,23 @@ module CustomFieldSql
             params[:project_id] = object.project_id
           end
           ActiveRecord::Base.connection.select_value(custom_field.default_value % params)
+        end
+
+        def formatted_value(view, custom_field, value, customized=nil, html=false)
+          return '' if value.blank?
+          if custom_field.multi_select.to_s == '1'
+            begin
+              JSON.parse(value).join(', ')
+            rescue JSON::ParserError
+              value
+            end
+          else
+            value
+          end
+        end
+
+        def multi_select?
+          custom_field && custom_field.multi_select.to_s == '1'
         end
       end
 

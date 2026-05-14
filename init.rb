@@ -2,7 +2,7 @@ Redmine::Plugin.register :custom_field_sql do
   name 'Redmine SQL Custom Field Label plugin'
   author 'Alexey Smirnov'
   description 'This is a plugin for Redmine which adds SQL type to Custom Fields'
-  version '2.8'
+  version '2.9'
   url 'https://github.com/apsmir/custom_field_sql'
 end
 
@@ -16,5 +16,6 @@ CustomField.safe_attributes(
   'db_config',
   'strict_selection',
   'strict_error_message',
-  'default_value'
+  'default_value',
+  'multi_select'
 )

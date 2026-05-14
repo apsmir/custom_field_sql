@@ -89,6 +89,26 @@ view_customize/custom_field_autselect_first_value.js
 It is script for plugin "view customize" https://www.redmine.org/plugins/view_customize
 The script allows you to automatically select the first value for a custom field (drop-down list) 
 
+Multiple selection (multi_select)
+-------------------------------------
+**sql_search** supports multiple selection via the `multi_select` option.
+
+1) Go to **Administration -> Custom fields** and edit/create a field with format **Sql search**.
+2) Check the **"Multiple selection"** checkbox in the field settings.
+3) When enabled, the field on the issue form shows:
+   - An autocomplete input to search and add values
+   - Selected values displayed as **tags** (chips) below the input
+   - A green **"+"** button (visible when `strict_selection` is disabled and no results found)
+4) Tags can be removed by clicking the **"×"** icon on each tag.
+5) Values are stored as a **JSON array** (e.g. `["val1","val2","val3"]`) in the database.
+6) In the issue list, values are displayed as a comma-separated string.
+
+**Interaction with strict_selection:**
+- `strict_selection = 1`: user can only select values from the autocomplete results; no arbitrary text input allowed.
+- `strict_selection = 0`: user can type any value and add it via the **"+"** button when no autocomplete results are found.
+
+**Single mode** — when `multi_select` is disabled, the field works as before (single autocomplete with validation).
+
 Uninstall
 ----------------------
 1) Delete all custom fields with format Sql.

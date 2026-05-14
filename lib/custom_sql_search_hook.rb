@@ -17,11 +17,31 @@ class CustomSqlSearchHook < Redmine::Hook::ViewListener
               options[:search_by_click] = field.search_by_click ||= 0;
               options[:strict_selection] = field.strict_selection ||= 0;
               options[:strict_error_message] = field.strict_error_message ||= 'it is not valid value';
-              html << "<script>\n"
-              html << "//<![CDATA[\n"
-              html << "observeSqlField(\'issue_custom_field_values_#{field.id}\', \'#{Redmine::Utils.relative_url_root}/custom_sql_search/search?project_id=#{context[:issue].project_id}&issue_id=#{context[:issue].id}&custom_field_id=#{field.id}\', JSON.parse(#{p.to_json.dump}), JSON.parse(#{options.to_json.dump}))\n"
-              html << "//]]>\n"
-              html << "</script>\n"
+              if field.multi_select.to_s == '1'
+                options[:multi_select] = true;
+                custom_value = context[:issue].custom_value_for(field)
+                selected_values = if custom_value && custom_value.value.present?
+                  begin
+                    JSON.parse(custom_value.value)
+                  rescue JSON::ParserError
+                    [custom_value.value]
+                  end
+                else
+                  []
+                end
+                options[:selected_values] = selected_values;
+                html << "<script>\n"
+                html << "//<![CDATA[\n"
+                html << "observeSqlMultiField(\'issue_custom_field_values_#{field.id}\', \'#{Redmine::Utils.relative_url_root}/custom_sql_search/search?project_id=#{context[:issue].project_id}&issue_id=#{context[:issue].id}&custom_field_id=#{field.id}\', JSON.parse(#{p.to_json.dump}), JSON.parse(#{options.to_json.dump}))\n"
+                html << "//]]>\n"
+                html << "</script>\n"
+              else
+                html << "<script>\n"
+                html << "//<![CDATA[\n"
+                html << "observeSqlField(\'issue_custom_field_values_#{field.id}\', \'#{Redmine::Utils.relative_url_root}/custom_sql_search/search?project_id=#{context[:issue].project_id}&issue_id=#{context[:issue].id}&custom_field_id=#{field.id}\', JSON.parse(#{p.to_json.dump}), JSON.parse(#{options.to_json.dump}))\n"
+                html << "//]]>\n"
+                html << "</script>\n"
+              end
           end
         end
       end

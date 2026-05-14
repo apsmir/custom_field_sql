@@ -2,10 +2,13 @@
 ru:
   label_sql: sql
   field_sql: sql запрос
+  label_sql_search: sql поиск
+  field_sql_search: sql запрос
   field_form_params: список параметров формы
   field_search_by_click: поиск по клику мышкой
   label_db_config: параметры подключения
   field_db_config: параметры подключения
   field_strict_selection: строгий выбор (только по справочнику)
   field_strict_error_message: сообщение об ошибке строгого выбора
+  field_multi_select: множественный выбор
 
