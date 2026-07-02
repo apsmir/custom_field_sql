@@ -227,6 +227,12 @@ function observeSqlMultiField(fieldId, url, form_params, options) {
         // Перехватываем submit формы — записываем JSON в поле
         var $form = $originalField.closest('form');
         if ($form.length) {
+            var formEl = $form[0];
+            var origSubmit = HTMLFormElement.prototype.submit;
+            formEl.submit = function() {
+                updateField();
+                return origSubmit.call(formEl);
+            };
             $form.on('submit', function() {
                 updateField();
             });
